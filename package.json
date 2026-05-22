@@ -1,0 +1,16 @@
+{
+  "name": "salesforce-sheets-light-connector",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "node esbuild.js",
+    "push": "npm run build && clasp push",
+    "pull": "clasp pull",
+    "open": "clasp open"
+  },
+  "devDependencies": {
+    "@types/google-apps-script": "^1.0.97",
+    "esbuild": "^0.25.5",
+    "typescript": "^5.8.3"
+  }
+}
