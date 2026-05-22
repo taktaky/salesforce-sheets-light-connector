@@ -1,4 +1,5 @@
 {
   "scriptId": "YOUR_SCRIPT_ID",
-  "rootDir": "dist"
+  "rootDir": "dist",
+  "filePushOrder": ["lib.js", "Code.js"]
 }
