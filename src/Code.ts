@@ -10,6 +10,22 @@ function syncNow(): void {
   Sfc.syncNow();
 }
 
+function dryRun(): void {
+  Sfc.dryRun();
+}
+
+function enableSchedule(): void {
+  Sfc.enableSchedule();
+}
+
+function disableSchedule(): void {
+  Sfc.disableSchedule();
+}
+
+function scheduledSync(): void {
+  Sfc.scheduledSync();
+}
+
 function showOAuthSetup(): void {
   Sfc.showOAuthSetupMenu();
 }

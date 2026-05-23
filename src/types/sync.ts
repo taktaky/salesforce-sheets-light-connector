@@ -34,6 +34,27 @@ export interface SyncSummary {
   results: SyncResult[];
 }
 
+export interface DryRunResult {
+  sheetName: string;
+  queryValid: boolean;
+  limit: number;
+  estimatedRows: number;
+  executionTimeMs: number;
+  fields: number;
+  warnings: string;
+  errors: string;
+}
+
+export interface DryRunSummary {
+  results: DryRunResult[];
+}
+
+export interface QueryProbeResult {
+  totalSize: number;
+  fields: number;
+  executionTimeMs: number;
+}
+
 export interface SalesforceQueryResponse {
   totalSize: number;
   done: boolean;

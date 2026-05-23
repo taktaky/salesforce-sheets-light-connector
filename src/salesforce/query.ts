@@ -1,5 +1,5 @@
 import { getSalesforceSession } from '../auth/oauth';
-import type { AdminConfig, SalesforceQueryResponse } from '../types/sync';
+import type { AdminConfig, QueryProbeResult, SalesforceQueryResponse } from '../types/sync';
 import { getApiVersion } from '../sync/incremental';
 
 function buildQueryUrl(instanceUrl: string, soql: string): string {
@@ -89,4 +89,27 @@ export function querySoql(soql: string, admin: AdminConfig): Record<string, stri
   }
 
   return records;
+}
+
+export function probeSoql(soql: string, admin: AdminConfig): QueryProbeResult {
+  const { accessToken, instanceUrl } = getSalesforceSession();
+  const startedAt = Date.now();
+  const page = fetchPage(buildQueryUrl(instanceUrl, soql), accessToken);
+
+  const firstRecord = page.records[0];
+  let fields = 0;
+  if (firstRecord) {
+    fields = Object.keys(firstRecord).filter((key) => key !== 'attributes').length;
+  }
+
+  const executionTimeMs = Date.now() - startedAt;
+  if (executionTimeMs > admin.maxTimeoutSec * 1000) {
+    throw new Error(`Query timeout (${admin.maxTimeoutSec}s) を超えました。`);
+  }
+
+  return {
+    totalSize: page.totalSize,
+    fields,
+    executionTimeMs,
+  };
 }
